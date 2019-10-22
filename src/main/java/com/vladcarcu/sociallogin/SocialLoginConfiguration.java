@@ -2,8 +2,10 @@ package com.vladcarcu.sociallogin;
 
 import com.vladcarcu.sociallogin.adapters.GoogleAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.Ordered;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.CompositeTokenGranter;
@@ -13,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
+@AutoConfigureOrder(Ordered.LOWEST_PRECEDENCE)
 @Import(GoogleAdapter.class)
 public class SocialLoginConfiguration extends AuthorizationServerConfigurerAdapter {
 
