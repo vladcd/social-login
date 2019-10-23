@@ -3,7 +3,8 @@ package com.vladcarcu.sociallogin;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 public class SocialLoginAuthenticationToken extends AbstractAuthenticationToken {
-    private String username;
+
+    private final String username;
 
     public SocialLoginAuthenticationToken(String username) {
         super(null);
