@@ -15,10 +15,8 @@ For now, only a Google adapter has been implemented.
 OR<br>
 run a Maven build, with the goals <code>clean package</code>, and then upload to a local maven repository (e.g. Nexus)
 - import your library in your sample project
-- depending on the social login service you wish to use, add specific parameters in your application.properties
-<code>
-social.login.google.client-ids=your Google client id
-</code>
+- depending on the social login service you wish to use, add specific parameters in your application.properties<br>
+<code>social.login.google.client-ids=your Google client id</code>
 <br>
 An example project is fully accessible and runnable here: https://gitlab.softvision.ro/vlad.carcu/social-login-example
 
