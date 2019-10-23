@@ -5,7 +5,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.vladcarcu.sociallogin.SocialLoginAdapter;
-import com.vladcarcu.sociallogin.SocialLoginAuthenticationToken;
+import com.vladcarcu.sociallogin.tokens.GoogleLoginAuthenticationToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,22 +14,23 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @ConditionalOnProperty("social.login.google.client-ids")
 public class GoogleAdapter implements SocialLoginAdapter {
+
+    private static final String TYPE_NAME = "google";
 
     @Value("#{'${social.login.google.client-ids}'.split(',')}")
     private List<String> allowedApps;
 
     @Override
     public boolean isApplicable(String type) {
-        return "google".equals(type);
+        return TYPE_NAME.equals(type);
     }
 
     @Override
-    public Optional<SocialLoginAuthenticationToken> validateLogin(String token) {
+    public GoogleLoginAuthenticationToken validateLogin(String token) {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport.Builder().build(), JacksonFactory.getDefaultInstance())
                 .setAudience(allowedApps)
                 .build();
@@ -38,9 +39,9 @@ public class GoogleAdapter implements SocialLoginAdapter {
             GoogleIdToken idToken = verifier.verify(token);
             if (idToken != null) {
                 GoogleIdToken.Payload payload = idToken.getPayload();
-                SocialLoginAuthenticationToken authenticationToken = new SocialLoginAuthenticationToken(payload.getSubject());
+                GoogleLoginAuthenticationToken authenticationToken = new GoogleLoginAuthenticationToken(payload.getSubject());
                 authenticationToken.setAuthenticated(true);
-                return Optional.of(authenticationToken);
+                return authenticationToken;
             } else {
                 throw new BadCredentialsException("Invalid Google token.");
             }
