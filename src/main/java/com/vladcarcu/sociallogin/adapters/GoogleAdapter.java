@@ -36,7 +36,9 @@ public class GoogleAdapter implements SocialLoginAdapter {
             GoogleIdToken idToken = verifier.verify(token);
             if (idToken != null) {
                 GoogleIdToken.Payload payload = idToken.getPayload();
-                return Optional.of(new SocialLoginAuthenticationToken(payload.getSubject()));
+                SocialLoginAuthenticationToken authenticationToken = new SocialLoginAuthenticationToken(payload.getSubject());
+                authenticationToken.setAuthenticated(true);
+                return Optional.of(authenticationToken);
             } else {
                 throw new BadCredentialsException("Invalid ID token.");
             }
