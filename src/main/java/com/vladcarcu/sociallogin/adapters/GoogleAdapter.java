@@ -7,6 +7,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.vladcarcu.sociallogin.SocialLoginAdapter;
 import com.vladcarcu.sociallogin.SocialLoginAuthenticationToken;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@ConditionalOnProperty("social.login.google.client-ids")
 public class GoogleAdapter implements SocialLoginAdapter {
 
     @Value("#{'${social.login.google.client-ids}'.split(',')}")
@@ -40,10 +42,14 @@ public class GoogleAdapter implements SocialLoginAdapter {
                 authenticationToken.setAuthenticated(true);
                 return Optional.of(authenticationToken);
             } else {
-                throw new BadCredentialsException("Invalid ID token.");
+                throw new BadCredentialsException("Invalid Google token.");
             }
         } catch (IOException | GeneralSecurityException ioe) {
-            throw new BadCredentialsException("Invalid ID token.", ioe);
+            throw new RuntimeException("An unforeseen exception appeared while validating the Google token.", ioe);
+        } catch (Exception e) {
+            throw new RuntimeException("An unforeseen exception appeared while validating the Google token. Possible causes:\n" +
+                    "1. The sent Google token is in an invalid format and could not be processed. Please use a proper one.\n" +
+                    "2. Another unforeseen exception occurred. Please contact the developer.", e);
         }
     }
 

@@ -1,11 +1,5 @@
 package com.vladcarcu.sociallogin;
 
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.authentication.AccountStatusException;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
@@ -28,7 +22,7 @@ public class SocialTokenGranter extends AbstractTokenGranter {
 
     @Override
     protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
-        Map<String, String> parameters = new LinkedHashMap(tokenRequest.getRequestParameters());
+        Map<String, String> parameters = new LinkedHashMap<>(tokenRequest.getRequestParameters());
         String type = parameters.get("type");
         String token = parameters.get("token");
         parameters.remove("token");
@@ -48,7 +42,4 @@ public class SocialTokenGranter extends AbstractTokenGranter {
         }
     }
 
-    public List<SocialLoginAdapter> getAdapters() {
-        return adapters;
-    }
 }
