@@ -20,6 +20,7 @@ run a Maven build, with the goals <code>clean package</code>, and then upload to
 <code>social.login.google.client-ids=your Google client id</code>
 <br>
 <code>social.login.facebook.app-id=your Facebook app id</code>
+<br>
 <code>social.login.facebook.app-secret=your Facebook app secret</code>
 <br>
 An example project is fully accessible and runnable here: https://gitlab.softvision.ro/vlad.carcu/social-login-example
