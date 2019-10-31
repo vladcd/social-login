@@ -31,8 +31,8 @@ public class SocialTokenGranter extends AbstractTokenGranter {
     @Override
     protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Map<String, String> parameters = new LinkedHashMap<>(tokenRequest.getRequestParameters());
-        String type = getType(parameters);
-        String token = getToken(parameters);
+        var type = getType(parameters);
+        var token = getToken(parameters);
         parameters.remove("token");
 
         return adapters.stream()
@@ -45,7 +45,7 @@ public class SocialTokenGranter extends AbstractTokenGranter {
     }
 
     private String getType(Map<String, String> parameters){
-        String type = parameters.get("type");
+        var type = parameters.get("type");
         if(isEmpty(type)){
             throw new InvalidGrantException("Type can't be null.");
         }
@@ -53,7 +53,7 @@ public class SocialTokenGranter extends AbstractTokenGranter {
     }
 
     private String getToken(Map<String, String> parameters){
-        String token = parameters.get("token");
+        var token = parameters.get("token");
         if(isEmpty(token)){
             throw new BadCredentialsException("Token can't be null.");
         }

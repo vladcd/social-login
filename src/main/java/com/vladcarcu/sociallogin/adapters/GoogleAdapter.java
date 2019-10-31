@@ -31,12 +31,12 @@ public class GoogleAdapter implements SocialLoginAdapter {
 
     @Override
     public GoogleLoginAuthenticationToken validateLogin(String token) {
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport.Builder().build(), JacksonFactory.getDefaultInstance())
+        var verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport.Builder().build(), JacksonFactory.getDefaultInstance())
                 .setAudience(allowedApps)
                 .build();
 
         try {
-            GoogleIdToken idToken = verifier.verify(token);
+            var idToken = verifier.verify(token);
             if (idToken != null) {
                 GoogleIdToken.Payload payload = idToken.getPayload();
                 GoogleLoginAuthenticationToken authenticationToken = new GoogleLoginAuthenticationToken(payload.getSubject());
