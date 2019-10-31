@@ -7,7 +7,8 @@ The purpose of this library is to accommodate the following use case:
 - the authentication with the social OpenId service has already been performed through another API
 - you wish to allow those already logged in clients to access your API
 
-For now, only a Google adapter has been implemented.
+For now, Google and Facebook adapters have been implemented.
+You can add your own adapters by implementing <code>SocialLoginAdapter</code>
 
 ## How to use
 - download the latest code
@@ -18,18 +19,19 @@ run a Maven build, with the goals <code>clean package</code>, and then upload to
 - depending on the social login service you wish to use, add specific parameters in your application.properties<br>
 <code>social.login.google.client-ids=your Google client id</code>
 <br>
+<code>social.login.facebook.app-id=your Facebook app id</code>
+<code>social.login.facebook.app-secret=your Facebook app secret</code>
+<br>
 An example project is fully accessible and runnable here: https://gitlab.softvision.ro/vlad.carcu/social-login-example
 
 ## How it works
 The library is built as a Spring Boot starter project.
 It defines a bean of type TokenGranter, which is injected at the end of the already existing list of TokenGranters.
 This SocialTokenGranter works for <code>grant_type=social</code>. In addition to that, it expects two other parameters:
-- <code>type</code>: the external service to validate tokens from (e.g. google). Possible values: <code>google</code>
+- <code>type</code>: the external service to validate tokens from (e.g. google). Possible values: <code>google</code>, <code>facebook</code>
 - <code>token</code>: an authorization token issued from that service
 
 In order for the login to be successful, the token must be valid, issued by the same service, for the same client id you configured. 
 
 ## What's next
-- add support for Facebook 
 - add support for Github
-- add support for custom providers
