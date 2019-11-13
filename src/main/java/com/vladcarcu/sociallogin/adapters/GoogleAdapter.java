@@ -5,7 +5,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.vladcarcu.sociallogin.SocialLoginAdapter;
-import com.vladcarcu.sociallogin.tokens.GoogleLoginAuthenticationToken;
+import com.vladcarcu.sociallogin.SocialLoginAuthenticationToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -30,7 +30,7 @@ public class GoogleAdapter implements SocialLoginAdapter {
     }
 
     @Override
-    public GoogleLoginAuthenticationToken validateLogin(String token) {
+    public SocialLoginAuthenticationToken validateLogin(String token) {
         var verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport.Builder().build(), JacksonFactory.getDefaultInstance())
                 .setAudience(allowedApps)
                 .build();
@@ -39,7 +39,7 @@ public class GoogleAdapter implements SocialLoginAdapter {
             var idToken = verifier.verify(token);
             if (idToken != null) {
                 GoogleIdToken.Payload payload = idToken.getPayload();
-                GoogleLoginAuthenticationToken authenticationToken = new GoogleLoginAuthenticationToken(payload.getSubject());
+                SocialLoginAuthenticationToken authenticationToken = new SocialLoginAuthenticationToken(payload.getSubject());
                 authenticationToken.setAuthenticated(true);
                 return authenticationToken;
             } else {
