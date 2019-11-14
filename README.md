@@ -7,7 +7,7 @@ The purpose of this library is to accommodate the following use case:
 - the authentication with the social OpenId service has already been performed through another API
 - you wish to allow those already logged in clients to access your API
 
-For now, Google and Facebook adapters have been implemented.
+For now, the following adapters have been implemented: Facebook, Google, LinkedIn
 You can add your own adapters by implementing <code>SocialLoginAdapter</code>
 
 ## How to use
@@ -17,9 +17,13 @@ OR<br>
 run a Maven build, with the goals <code>clean package</code>, and then upload to a local maven repository (e.g. Nexus)
 - import your library in your sample project
 - depending on the social login service you wish to use, add specific parameters in your application.properties<br>
-<code>social.login.google.client-ids=your Google client id</code><br>
+<code>social.login.google.client-ids=your Google client id</code><br><br>
 <code>social.login.facebook.app-id=your Facebook app id</code><br>
-<code>social.login.facebook.app-secret=your Facebook app secret</code><br>
+<code>social.login.facebook.app-secret=your Facebook app secret</code><br><br>
+<code>social.login.linkedin.client-id=your LinkedIn client id</code><br>
+<code>social.login.linkedin.client-secret=your LinkedIn client secret</code><br>
+<code>social.login.linkedin.redirect-uri=one of your LinkedIn redirect URIs</code><br>
+
 An example project is fully accessible and runnable here: https://gitlab.softvision.ro/vlad.carcu/social-login-example
 
 ## How it works
@@ -33,3 +37,4 @@ In order for the login to be successful, the token must be valid, issued by the 
 
 ## What's next
 - add support for Github
+- move to Java 9 modules (once there's no split package conflict between Spring Security and Spring Security OAuth2)
