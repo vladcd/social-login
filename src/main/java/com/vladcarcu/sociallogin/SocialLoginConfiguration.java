@@ -2,6 +2,7 @@ package com.vladcarcu.sociallogin;
 
 import com.vladcarcu.sociallogin.adapters.FacebookAdapter;
 import com.vladcarcu.sociallogin.adapters.GoogleAdapter;
+import com.vladcarcu.sociallogin.adapters.LinkedInAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Configuration
 @AutoConfigureOrder(Ordered.LOWEST_PRECEDENCE)
-@Import({GoogleAdapter.class, FacebookAdapter.class})
+@Import({GoogleAdapter.class, FacebookAdapter.class, LinkedInAdapter.class})
 public class SocialLoginConfiguration extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
