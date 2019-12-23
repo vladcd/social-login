@@ -24,7 +24,7 @@ run a Maven build, with the goals <code>clean package</code>, and then upload to
 <code>social.login.linkedin.client-secret=your LinkedIn client secret</code><br>
 <code>social.login.linkedin.redirect-uri=one of your LinkedIn redirect URIs</code><br>
 
-An example project is fully accessible and runnable here: https://gitlab.softvision.ro/vlad.carcu/social-login-example
+An example project is fully accessible and runnable here: https://github.com/vladcd/social-login-example
 
 ## How it works
 The library is built as a Spring Boot starter project.
